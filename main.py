@@ -64,7 +64,9 @@ def needs_admin(function):
     @wraps(function) #to ensure it is compatible with multiple decorators
     def secure(*args, **kwargs):
         if current_user.is_authenticated:
-            if current_user.id == 1: # admin test
+            # First registered account is the Admin. If you want a different admin condition, 
+            # eg, a specific name. You will have to do it here.
+            if current_user.id == 1: 
                 return function(*args,**kwargs)
         return manager.unauthorized()
     return secure
