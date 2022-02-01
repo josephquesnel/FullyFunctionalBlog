@@ -24,7 +24,7 @@ db = SQLAlchemy(app)
 manager = LoginManager()
 manager.init_app(app)
 
-##CONFIGURE TABLES
+#Database Tables
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(250), unique=True, nullable=False)
