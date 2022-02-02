@@ -19,7 +19,7 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=200)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 manager = LoginManager()
@@ -54,7 +54,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("blogpost.id"))
     parent_post = relationship("BlogPost", back_populates="comments") 
     text = db.Column(db.Text, nullable=False)
-#db.create_all() # if you want to change or accidentally delete the database, just uncomment.
+
+db.create_all() # if you want to change or accidentally delete the database, just uncomment.
 
 def get_username():
     if type(current_user._get_current_object()) is not AnonymousUserMixin:
